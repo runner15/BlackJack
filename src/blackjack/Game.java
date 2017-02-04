@@ -1,15 +1,17 @@
 package blackjack;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * @author Runner15
  */
 public class Game {
     private int numPlay = 0;
-    private Player[] player;
+    private ArrayList<Player> player;
     public Deck deck;
     private Player dealer;
     public Game()
     {
+        player = new ArrayList();
         while(numPlay<1 || numPlay>4)
         {
             System.out.print("How many players? (Between 1 and 4) ");
@@ -18,14 +20,13 @@ public class Game {
         }
         deck = new Deck();
         deck.shuffle();
-        player = new Player[numPlay];
         dealer = new Player("Dealer");
         for(int i = 0; i < numPlay; i++)
         {
-            player[i] = new Player("Player"+i);
+            player.add(new Player("Player"+i));
         }
     }
-    public Player[] getPlayers()
+    public ArrayList<Player> getPlayers()
     {
         return player;
     }
@@ -38,42 +39,42 @@ public class Game {
         for(int j=0;j<3;j++)
         {
             dealer.addCards(deck.deal());
-            for(int i=0; i < numPlay; i++)
+            for(int i=0; i < player.size(); i++)
             {
-                player[i].addCards(deck.deal());
+                player.get(i).addCards(deck.deal());
             }
         }
     }
     public void bet()
     {
-        for(int i = 0; i < numPlay; i++)
+        for(int i = 0; i < player.size(); i++)
         {
-            player[i].setBet();
+            player.get(i).setBet();
         }        
     }
     public void turn()
     {
-        for(int i = 0; i < numPlay; i++)
+        for(int i = 0; i < player.size(); i++)
         {
             System.out.println("It is Player "+(i+1)+"'s turn.");
-            for(int j=0; j<numPlay;j++)
+            for(int j=0; j<player.size();j++)
             {
                 System.out.print("Player "+(j+1)+"'s cards: ");
-                player[j].hand();
+                player.get(i).hand();
             }
             System.out.print("Dealer's cards: ** ** "); dealer.card(2);
-            System.out.println("Player "+(i+1)+"'s total = "+player[i].handTot());
-            if(player[i].play())
+            System.out.println("Player "+(i+1)+"'s total = "+player.get(i).handTot());
+            if(player.get(i).play())
             {
-                player[i].addCards(deck.deal());
-                if(player[i].handTot() <= 31)
+                player.get(i).addCards(deck.deal());
+                if(player.get(i).handTot() <= 31)
                 {
                     i--;
                 }
                 else
                 {
                     System.out.println("Player "+(i+1)+" Busted");
-                    player[i].setBust();
+                    player.get(i).setBust();
                 }
             }
         }
@@ -84,15 +85,15 @@ public class Game {
     }
     public void checkWin()
     {
-        for(int i = 0; i < numPlay; i++)
+        for(int i = 0; i < player.size(); i++)
         {
-            if(!player[i].checkBust() && (player[i].handTot() > dealer.handTot()))
+            if(!player.get(i).checkBust() && (player.get(i).handTot() > dealer.handTot()))
             {
-                player[i].win();
+                player.get(i).win();
             }
             else
             {
-                player[i].lose();
+                player.get(i).lose();
             }
         }
     }

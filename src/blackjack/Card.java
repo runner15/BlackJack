@@ -31,7 +31,7 @@ public class Card {
     public int getValue()
     {
         value = 0;
-        if(num>10)
+        if(num>9)
         {
             value = 10;
         }

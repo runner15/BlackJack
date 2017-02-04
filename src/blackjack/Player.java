@@ -87,12 +87,18 @@ public class Player {
         return isOut;
     }
 
-    public void win() {
+    public void win(int i) {
         points += bet;
+        System.out.println("Player "+(i+1)+" won "+bet+" points! Current:  "+points);
     }
 
-    public boolean lose() {
+    public boolean lose(int i) {
         points -= bet;
+        System.out.println("Player "+(i+1)+" lost "+bet+" points! Current: "+points);
         return points==0;
+    }
+    public void push(int i) {
+        points = points;
+        System.out.println("Player "+(i+1)+" Tied! Current: "+points);
     }
 }

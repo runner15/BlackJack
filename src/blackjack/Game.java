@@ -9,6 +9,7 @@ public class Game {
     private ArrayList<Player> player;
     public Deck deck;
     private Player dealer;
+    private Card card;
     public Game()
     {
         player = new ArrayList();
@@ -26,9 +27,9 @@ public class Game {
             player.add(new Player("Player"+i));
         }
     }
-    public ArrayList<Player> getPlayers()
+    public boolean getPlayers()
     {
-        return player;
+        return player.size()!=0;
     }
     public Deck deck()
     {
@@ -60,13 +61,15 @@ public class Game {
             for(int j=0; j<player.size();j++)
             {
                 System.out.print("Player "+(j+1)+"'s cards: ");
-                player.get(i).hand();
+                player.get(j).hand();
             }
             System.out.print("Dealer's cards: ** ** "); dealer.card(2);
             System.out.println("Player "+(i+1)+"'s total = "+player.get(i).handTot());
             if(player.get(i).play())
             {
-                player.get(i).addCards(deck.deal());
+                card = deck.deal();
+                System.out.println(card.getBoth());
+                player.get(i).addCards(card);
                 if(player.get(i).handTot() <= 31)
                 {
                     i--;
@@ -75,25 +78,46 @@ public class Game {
                 {
                     System.out.println("Player "+(i+1)+" Busted");
                     player.get(i).setBust();
+                    if(player.get(i).lose(i))
+                    {
+                        player.remove(i);
+                    }
                 }
             }
         }
     }
     public void dealer()
     {
-        
+        System.out.print("Dealer's hand: ");
+        dealer.hand();
+        System.out.println("Dealer's total: "+dealer.handTot());
+        while(dealer.handTot() <= 26)
+        {
+            dealer.addCards(deck.deal());
+            System.out.print("Dealer's hand: ");
+            dealer.hand();
+            System.out.println("Dealer's total: "+dealer.handTot());
+        }
     }
     public void checkWin()
     {
         for(int i = 0; i < player.size(); i++)
         {
-            if(!player.get(i).checkBust() && (player.get(i).handTot() > dealer.handTot()))
+            if(!player.get(i).checkBust() && (player.get(i).handTot()>dealer.handTot()) && dealer.handTot()>32)
             {
-                player.get(i).win();
+                player.get(i).win(i);
+            }
+            else if(player.get(i).handTot()==dealer.handTot())
+            {
+                player.get(i).push(i);
             }
             else
             {
-                player.get(i).lose();
+                if(player.get(i).lose(i))
+                {
+                    player.remove(i);
+                    System.out.println("Player "+(i+1)+" is out of the game");
+                }
             }
         }
     }

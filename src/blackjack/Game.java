@@ -57,14 +57,14 @@ public class Game {
     {
         for(int i = 0; i < player.size(); i++)
         {
-            System.out.println("It is Player "+(i+1)+"'s turn.");
+            System.out.println("It is "+player.get(i).getName()+"'s turn.");
             for(int j=0; j<player.size();j++)
             {
-                System.out.print("Player "+(j+1)+"'s cards: ");
+                System.out.print(player.get(i).getName()+"'s cards: ");
                 player.get(j).hand();
             }
             System.out.print("Dealer's cards: ** ** "); dealer.card(2);
-            System.out.println("Player "+(i+1)+"'s total = "+player.get(i).handTot());
+            System.out.println(player.get(i).getName()+"'s total = "+player.get(i).handTot());
             if(player.get(i).play())
             {
                 card = deck.deal();
@@ -76,7 +76,7 @@ public class Game {
                 }
                 else
                 {
-                    System.out.println("Player "+(i+1)+" Busted");
+                    System.out.println(player.get(i).getName()+" Busted");
                     player.get(i).setBust();
                     if(player.get(i).lose(i))
                     {
@@ -116,7 +116,7 @@ public class Game {
                 if(player.get(i).lose(i))
                 {
                     player.remove(i);
-                    System.out.println("Player "+(i+1)+" is out of the game");
+                    System.out.println(player.get(i).getName()+" is out of the game");
                 }
             }
         }

@@ -101,4 +101,8 @@ public class Player {
         points = points;
         System.out.println("Player "+(i+1)+" Tied! Current: "+points);
     }
+    public String getName()
+    {
+        return name;
+    }
 }

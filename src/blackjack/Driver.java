@@ -8,7 +8,8 @@ public class Driver {
     public static void main(String[] args)
     {
         Game game = new Game();
-        while(game.getPlayers())
+        String newRound = null;
+        while(game.getPlayers() && !"S".equals(newRound))
         {
             game.deck.shuffle();
             game.deal();
@@ -19,6 +20,9 @@ public class Driver {
                 game.dealer();
             }
             game.checkWin();
+            System.out.print("Do you want to (S)top? ENTER to continue");
+            Scanner in = new Scanner(System.in);
+            newRound = in.nextLine();
         }
         System.out.println("Game Over");
     }

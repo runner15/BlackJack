@@ -89,17 +89,17 @@ public class Player {
 
     public void win(int i) {
         points += bet;
-        System.out.println("Player "+(i+1)+" won "+bet+" points! Current:  "+points);
+        System.out.println(getName()+" won "+bet+" points! Current:  "+points);
     }
 
     public boolean lose(int i) {
         points -= bet;
-        System.out.println("Player "+(i+1)+" lost "+bet+" points! Current: "+points);
+        System.out.println(getName()+" lost "+bet+" points! Current: "+points);
         return points==0;
     }
     public void push(int i) {
         points = points;
-        System.out.println("Player "+(i+1)+" Tied! Current: "+points);
+        System.out.println(getName()+" Tied! Current: "+points);
     }
     public String getName()
     {

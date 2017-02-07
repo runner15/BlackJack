@@ -60,7 +60,7 @@ public class Game {
             System.out.println("It is "+player.get(i).getName()+"'s turn.");
             for(int j=0; j<player.size();j++)
             {
-                System.out.print(player.get(i).getName()+"'s cards: ");
+                System.out.print(player.get(j).getName()+"'s cards: ");
                 player.get(j).hand();
             }
             System.out.print("Dealer's cards: ** ** "); dealer.card(2);
@@ -78,9 +78,10 @@ public class Game {
                 {
                     System.out.println(player.get(i).getName()+" Busted");
                     player.get(i).setBust();
-                    if(player.get(i).lose(i))
+                    if(player.get(i).lose())
                     {
                         player.remove(i); //If player has 0 points, remove them from game
+                        i--;
                     }
                 }
             }
@@ -106,18 +107,20 @@ public class Game {
             boolean playerWin = ((player.get(i).handTot()>dealer.handTot()) || (dealer.handTot()>=32));
             if((!player.get(i).checkBust()) && playerWin) //Win if player doesn't bust, higher than dealer, or dealer busts
             {
-                player.get(i).win(i);
+                player.get(i).win();
             }
             else if(player.get(i).handTot()==dealer.handTot()) //Ties push
             {
-                player.get(i).push(i);
+                player.get(i).push();
             }
             else
             {
-                if(player.get(i).lose(i)) //Check if player has 0 points
+                if(player.get(i).lose()) //Check if player has 0 points
                 {
-                    player.remove(i);
                     System.out.println(player.get(i).getName()+" is out of the game");
+                    player.remove(i);
+                    i--;
+                    break;
                 }
             }
             player.get(i).clearHand(); //Clear hand for next round

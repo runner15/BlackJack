@@ -23,6 +23,7 @@ public class Deck {
     public void shuffle()
     {
         Collections.shuffle(deck);
+        curCard = 0;
         //System.out.println(deck);
     }
     public Card card(int num)

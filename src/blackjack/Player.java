@@ -70,7 +70,7 @@ public class Player {
         playDec = null;
         while(!"H".equals(playDec) && !"S".equals(playDec))
         {
-            System.out.print("Do you want to (H)it or (S)tand? ");
+            System.out.print(getName()+", do you want to (H)it or (S)tand? ");
             Scanner in = new Scanner(System.in);
             playDec = in.nextLine();
         }
@@ -85,8 +85,8 @@ public class Player {
         checkBet = 99999;
         while(checkBet > points || checkBet <= 0)
         {
-            System.out.println("How much do you want to bet?");
-            System.out.print("You have "+points+" points: ");
+            System.out.println(getName()+", how much do you want to bet?");
+            System.out.print(getName()+" has "+points+" points: ");
             Scanner in = new Scanner(System.in);
             checkBet = in.nextInt();
         }
@@ -97,17 +97,17 @@ public class Player {
         return isOut;
     }
 
-    public void win(int i) { //If win, add bet to points
+    public void win() { //If win, add bet to points
         points += bet;
         System.out.println(getName()+" won "+bet+" points! Current:  "+points);
     }
 
-    public boolean lose(int i) { //If loss, subtract bet from points
+    public boolean lose() { //If loss, subtract bet from points
         points -= bet;
         System.out.println(getName()+" lost "+bet+" points! Current: "+points);
         return points==0;
     }
-    public void push(int i) { //If tie, keep current points
+    public void push() { //If tie, keep current points
         points = points;
         System.out.println(getName()+" Tied! Current: "+points);
     }

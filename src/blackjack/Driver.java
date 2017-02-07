@@ -20,7 +20,8 @@ public class Driver {
                 game.dealer();
             }
             game.checkWin();
-            System.out.print("Do you want to (S)top? ENTER to continue");
+            game.dealer.clearHand();
+            System.out.print("Do you want to (S)top? ENTER to continue ");
             Scanner in = new Scanner(System.in);
             newRound = in.nextLine();
         }

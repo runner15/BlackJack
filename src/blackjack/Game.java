@@ -8,7 +8,7 @@ public class Game {
     private int numPlay = 0;
     private ArrayList<Player> player;
     public Deck deck;
-    private Player dealer;
+    public Player dealer;
     private Card card;
     public Game()
     {
@@ -103,7 +103,8 @@ public class Game {
     {
         for(int i = 0; i < player.size(); i++)
         {
-            if(!player.get(i).checkBust() && (player.get(i).handTot()>dealer.handTot()) && dealer.handTot()>32)
+            boolean playerWin = ((player.get(i).handTot()>dealer.handTot()) || (dealer.handTot()>=32));
+            if((!player.get(i).checkBust()) && playerWin)
             {
                 player.get(i).win(i);
             }
@@ -119,6 +120,7 @@ public class Game {
                     System.out.println(player.get(i).getName()+" is out of the game");
                 }
             }
+            player.get(i).clearHand();
         }
     }
 }

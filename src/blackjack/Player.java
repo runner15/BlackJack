@@ -15,6 +15,7 @@ public class Player {
     private String playDec;
     private boolean isOut;
     private int checkBet;
+    private int aceCount;
     
     
     public Player(String inName)
@@ -49,9 +50,18 @@ public class Player {
     public int handTot()
     {
         handTot = 0;
+        aceCount = 0;
         for(int i=0; i<hand.size(); i++)
         {
             handTot += hand.get(i).getValue();
+            if("A".equals(hand.get(i).getNum()))
+            {
+                aceCount++;
+            }
+        }
+        if(aceCount > 0 && handTot > 31)
+        {
+            handTot -= 10;
         }
         return handTot;
     }
@@ -104,5 +114,9 @@ public class Player {
     public String getName()
     {
         return name;
+    }
+    public void clearHand()
+    {
+        hand.clear();
     }
 }

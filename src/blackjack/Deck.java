@@ -40,8 +40,7 @@ public class Deck {
         curCard++;
         return dealCard;
     }        
-            
-            
+                        
     public String getNum(int num)
     {
         return deck.get(num).getNum();

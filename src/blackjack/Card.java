@@ -24,11 +24,11 @@ public class Card {
     {
         return suits[suit];
     }
-    public String getBoth()
+    public String getBoth() //Get number and suit(code)
     {
         return nums[num]+suitsCode[code];
     }
-    public int getValue()
+    public int getValue() //Get value of cards, face_cards=10
     {
         value = 0;
         if(num>9)

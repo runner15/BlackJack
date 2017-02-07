@@ -13,7 +13,7 @@ public class Game {
     public Game()
     {
         player = new ArrayList();
-        while(numPlay<1 || numPlay>4)
+        while(numPlay<1 || numPlay>4) //1 to 4 players
         {
             System.out.print("How many players? (Between 1 and 4) ");
             Scanner in = new Scanner(System.in);
@@ -27,15 +27,15 @@ public class Game {
             player.add(new Player("Player"+i));
         }
     }
-    public boolean getPlayers()
+    public boolean getPlayers() //Makes sure there are players
     {
-        return player.size()!=0;
+        return !player.isEmpty();  
     }
     public Deck deck()
     {
         return deck;
     }
-    public void deal()
+    public void deal() //Gives 3 cards to each player+dealer
     {
         for(int j=0;j<3;j++)
         {
@@ -46,14 +46,14 @@ public class Game {
             }
         }
     }
-    public void bet()
+    public void bet() //Lets players set point bets
     {
         for(int i = 0; i < player.size(); i++)
         {
             player.get(i).setBet();
         }        
     }
-    public void turn()
+    public void turn() //Asks players to hit or stand
     {
         for(int i = 0; i < player.size(); i++)
         {
@@ -65,14 +65,14 @@ public class Game {
             }
             System.out.print("Dealer's cards: ** ** "); dealer.card(2);
             System.out.println(player.get(i).getName()+"'s total = "+player.get(i).handTot());
-            if(player.get(i).play())
+            if(player.get(i).play()) //If player picks Hit
             {
-                card = deck.deal();
+                card = deck.deal(); //Get 1 card
                 System.out.println(card.getBoth());
-                player.get(i).addCards(card);
+                player.get(i).addCards(card); //Gives 1 card to players hand
                 if(player.get(i).handTot() <= 31)
                 {
-                    i--;
+                    i--; //If player is less than 31, ask them if they want to hit again
                 }
                 else
                 {
@@ -80,13 +80,13 @@ public class Game {
                     player.get(i).setBust();
                     if(player.get(i).lose(i))
                     {
-                        player.remove(i);
+                        player.remove(i); //If player has 0 points, remove them from game
                     }
                 }
             }
         }
     }
-    public void dealer()
+    public void dealer() //Gives dealer cards until hand>26
     {
         System.out.print("Dealer's hand: ");
         dealer.hand();
@@ -99,28 +99,28 @@ public class Game {
             System.out.println("Dealer's total: "+dealer.handTot());
         }
     }
-    public void checkWin()
+    public void checkWin() //Checks each player vs the dealer
     {
         for(int i = 0; i < player.size(); i++)
         {
             boolean playerWin = ((player.get(i).handTot()>dealer.handTot()) || (dealer.handTot()>=32));
-            if((!player.get(i).checkBust()) && playerWin)
+            if((!player.get(i).checkBust()) && playerWin) //Win if player doesn't bust, higher than dealer, or dealer busts
             {
                 player.get(i).win(i);
             }
-            else if(player.get(i).handTot()==dealer.handTot())
+            else if(player.get(i).handTot()==dealer.handTot()) //Ties push
             {
                 player.get(i).push(i);
             }
             else
             {
-                if(player.get(i).lose(i))
+                if(player.get(i).lose(i)) //Check if player has 0 points
                 {
                     player.remove(i);
                     System.out.println(player.get(i).getName()+" is out of the game");
                 }
             }
-            player.get(i).clearHand();
+            player.get(i).clearHand(); //Clear hand for next round
         }
     }
 }

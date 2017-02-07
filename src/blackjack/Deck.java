@@ -1,7 +1,6 @@
 package blackjack;
 import java.util.ArrayList;
 import java.util.*;
-import java.util.Arrays;
 /**
  * @author Runner15
  */
@@ -9,7 +8,7 @@ public class Deck {
     private ArrayList<Card> deck;
     private Card dealCard;
     private static int curCard;
-    public Deck()
+    public Deck() //Creates deck of 52 cards
     {
         curCard = 0;
         deck = new ArrayList();
@@ -34,7 +33,7 @@ public class Deck {
     {
         return deck.size();
     }
-    public Card deal()
+    public Card deal() //Deals one card, and moves to next card in deck
     {
         dealCard = deck.get(curCard);
         curCard++;
